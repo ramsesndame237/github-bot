@@ -1,0 +1,16 @@
+{
+  "name": "github-bot",
+  "version": "1.0.0",
+  "description": "this is the bot learning how to populate my github repository",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ramses",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "jsonfile": "^6.1.0",
+    "moment": "^2.29.4"
+  }
+}
