@@ -3,35 +3,31 @@ const moment = require('moment')
 const axios = require('axios')
 const randomValueInArrayString = require("./randomValueInArrayString");
 
-const generatorRandom = () => {
+const generatorRandom = async (date) => {
     let citation = null;
     let astuce = null;
 
-    const lang = randomValueInArrayString(['fr', 'en'])
+    const mode = randomValueInArrayString(['today', 'random'])
 
 //get online citation
 
-    axios.get(`https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=${lang}`).then((response) => {
-        console.log(response.data)
+   await axios.post(`https://zenquotes.io/api/${mode}&lang=fr`).then((response) => {
+        console.log(response.data[0].h)
 
-        citation = response.data.quote
+        citation = {
+            author:response.data[0].a,
+            quote:response.data[0].q,
+            htmlQuote:response.data[0].h
+        }
+        // save and return the data
+
     }).catch((error) => {
         console.error(error)
     })
 
-//get online astuce of the web development
-
-    // axios.get('https://devhints.io/api/random').then((response) => {
-    //     astuce = response.data.content;
-    // }).catch((error) => {
-    //     console.error(error)
-    // })
-
-    // save and return the data
-    const data = {
+    return {
         citation: citation,
-        date: moment().format('YYYY-MM-DD')
+        date:date ?? moment().format('YYYY-MM-DD')
     }
-    return data
 }
 module.exports = generatorRandom
