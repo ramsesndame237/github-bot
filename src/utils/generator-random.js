@@ -7,17 +7,21 @@ const generatorRandom = async (date) => {
     let citation = null;
     let astuce = null;
 
-    const mode = randomValueInArrayString(['today', 'random'])
+    const mode = randomValueInArrayString(['computers', 'communications','business','birthday','experience','god','history','imagination','knowledge','money'])
 
 //get online citation
 
-   await axios.post(`https://zenquotes.io/api/${mode}&lang=fr`).then((response) => {
-        console.log(response.data[0].h)
+   await axios.get(`https://api.api-ninjas.com/v1/quotes?category=${mode}`,{
+       headers:{
+           'X-Api-Key':'WeFXcI10Ispn3ndM6FUrcg==TwDjGHhvRpdwDlmw'
+       }
+   }).then((response) => {
+        console.log(response.data[0].author)
 
         citation = {
-            author:response.data[0].a,
-            quote:response.data[0].q,
-            htmlQuote:response.data[0].h
+            author:response.data[0].author,
+            quote:response.data[0].quote,
+            category:response.data[0].category
         }
         // save and return the data
 
